@@ -21,8 +21,8 @@ Mixed-Signal SoC를 설계합니다.
 | 팀원 | 역할 | 주요 담당 | 주요 툴 |
 |---|---|---|---|
 | 이수환 (팀장) | 아날로그 설계 + 통합 검증 | AFE, SAR ADC, Mixed-Signal 통합 | LTspice, XModel, MATLAB |
-| 팀원 B | 디지털 RTL 설계 + FPGA | IIR 필터, Pan-Tompkins RTL, FPGA 구현 | Vivado, Nexys A7 |
-| 팀원 C | 알고리즘 + AI + 검증 | Pan-Tompkins Python, DT 학습, 데이터 처리 | Python, MATLAB Simulink |
+| 팀원 양건 | 디지털 RTL 설계 + FPGA | IIR 필터, Pan-Tompkins RTL, FPGA 구현 | Vivado, Nexys A7 |
+| 팀원 서민우 | 알고리즘 + AI + 검증 | Pan-Tompkins Python, DT 학습, 데이터 처리 | Python, MATLAB Simulink |
 
 ---
 
@@ -77,8 +77,8 @@ AFE(LTspice→XModel) → SAR ADC(LTspice→XModel)
 ```
 ECG-SoC/
 ├── analog/       # LTspice, XModel 파일 (이수환)
-├── digital/      # Verilog RTL (팀원 B)
-├── algorithm/    # Python, MATLAB 스크립트 (팀원 C)
+├── digital/      # Verilog RTL (양건)
+├── algorithm/    # Python, MATLAB 스크립트 (서민우)
 ├── tb/           # 통합 테스트벤치
 ├── docs/         # 설계 문서, 발표 자료
 └── data/         # MIT-BIH 샘플 데이터
