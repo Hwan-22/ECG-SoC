@@ -228,7 +228,7 @@ ECG-SoC/
 
 ## 월별 개발 로드맵
 
-| 기간 | 이수환 (아날로그) | 팀원 B (디지털) | 팀원 C (알고리즘) |
+| 기간 | 이수환 (아날로그) | 양건 (디지털) | 서민우 (알고리즘) |
 |---|---|---|---|
 | 3월 | IA 증폭기 LTspice 설계 | IIR Notch Verilog | CSV 전처리, Spike 인코딩 Python |
 | 4월 | HPF·Notch·SAR ADC LTspice | Pan-Tompkins RTL, LIF 뉴런 Verilog | SNN 학습, T 파라미터 최적화 |
