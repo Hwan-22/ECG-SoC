@@ -1,7 +1,0 @@
-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
-
---------------------------------------------------------
-
-
-XMODEL will be installed to this location:
-/home/soohwan/xmodel_2025.12_x86_64
