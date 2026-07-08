@@ -43,7 +43,7 @@ LTspice 회로 설계 + XModel(Questa) 통합 검증 + FPGA(Nexys A7) board repl
 |---|---|---|
 | 이수환 (팀장) | AFE·ADC 설계 + 통합 검증 | `analog/`, `docs/`, `datasets/fullrec_afe*` |
 | 양건 | 디지털 SNN accelerator + FPGA | `digital_block/` · [SNN-ECG-4-Class-Classifier](https://github.com/Sheep-gun/SNN-ECG-4-Class-Classifier) |
-| 서민우 | 알고리즘·데이터·학습 | `algorithm/` |
+| 서민우 | 알고리즘·데이터·학습 | `algorithm/` , `matlab_afe_validation/` |
 
 ---
 
