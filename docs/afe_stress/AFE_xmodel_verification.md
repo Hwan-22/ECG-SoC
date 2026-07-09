@@ -39,6 +39,9 @@
 
 > **결론(스코프):** 본 설계는 **60Hz(한국 mains) 대상**이며, 50Hz 환경은 **notch center를 50Hz로 retune**하면 동일 성능 확보(RT/RB/CT 값 f₀=50Hz로 재계산). 약점이 아니라 대상 명확화.
 
+**합의 문구(디지털팀 확정):**
+> 본 설계의 notch target은 60 Hz 환경을 기준으로 한다. 50 Hz power-line 환경에서는 notch center frequency retuning이 필요하며, 50 Hz 결과는 설계 scope 밖의 stress/portability check로 해석한다.
+
 ---
 
 ## 1.3 전극 DC offset / baseline wander 스트레스 — ✅ 강건
@@ -120,3 +123,24 @@
 | 2.4 GBW/VOS | GBW 100k 영향≤2code; VOS ×201 헤드룸 | ✅ (+DC servo 권장) |
 
 재현: `bash scripts/{run_afe_val,run_pli_freq,run_stress,run_mismatch,run_opamp}.sh` (WSL, XModel+Questa). 변형 소스 `analog/ecg_afe_xmodel_{mm,op}.sv`, tb `tb/tb_{ecg_pli_freq,ecg_stress,afe_mm,afe_op}.sv`.
+1.4 정합 세그 목록(재현성): `docs/afe_stress/afe_val36_segment_list.csv`.
+
+## 2.1 / 1.2 final_pred — 최신 locked model 반영 (2026-07-09)
+디지털팀 확정대로 XSim 하네스(`docs/integration_latest/xsim_harness`)로 **ADC 비이상성을 30분 chunk에 주입 → 최신 locked model(`snn_ecg_30min_final_top`) 분류결과 변화** 측정. 대표 4클래스 chunk(경계 ARR-105 포함) × 최악 섭동.
+
+| chunk(class) | off +5LSB | gain +1% | noise 2LSB | jitter 100µs |
+|---|---|---|---|---|
+| ARR 105 | ARR | ARR | ARR | ARR |
+| NSR 16483 | NSR | NSR | **CHF (flip)** | NSR |
+| CHF chf09 | CHF | CHF | CHF | CHF |
+| AFF 06995 | AFF | AFF | AFF | AFF |
+
+- **final_pred 유지 15/16.** offset(±5LSB)·gain(±1%)·jitter(100µs)는 **전 클래스 flip 0** (offset은 membrane drift도 0 — 디지털 delta/normalizer가 DC 제거).
+- **유일 flip = NSR@noise 2LSB rms.** 임계 확인: noise **0.5·1.0 LSB → NSR 완전 유지(30/0/0/0)**, 2.0 LSB에서만 flip. 즉 **현실적 ADC 잡음(≤1 LSB)에선 견고**하고, 2 LSB(ENOB~10, nominal보다 잡음 많음) 백색잡음이 깨끗한 NSR의 저변동성 feature를 부풀려 발생하는 **분류기 민감성**(ARR-105와 동류의 cross-domain 발견, 알고리즘팀 영역).
+- 결과 CSV: `docs/afe_stress/adc_nonideal_finalpred_xsim.csv`(+`_map.csv`).
+
+**1.2(R/C mismatch) final_pred:** 30분 아날로그 XModel은 케이스당 ~70분으로 sweep 비현실적 → 등가 논증. 1.2 측정상 1% 최악 mismatch의 신호 섭동은 60Hz 잔차 ≤6.5mV(≈8 code, 신호 284mV 대비 <3%)이고 clipping 0. 이는 위 2.1에서 flip 없던 offset/gain 수준(그리고 noise ≤1LSB 견고)과 동급 이하의 섭동이며, 60Hz 성분은 능동 노치가 추가 억압 → **final_pred 유지로 추정**(직접 30분 XModel 미실행, 등가 근거).
+
+## 검증 한계 (디지털팀 공동 합의)
+> 입력 ECG는 실제 전극에서 새로 측정한 raw analog signal이 아니라 공개 digitized ECG record이다.
+> 본 프로젝트의 AFE+ADC 검증은 physical AFE PCB/ADC silicon measurement가 아니라 XMODEL/emulator 기반 model-based verification이다.

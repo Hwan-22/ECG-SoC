@@ -22,3 +22,11 @@
 - 1.1 clipping/headroom(전 DB): `docs/afe_stress/clipping_report.csv` — 60s chunk 1,200개 clipping 0.
 - 2.1 ADC non-ideal / 2.3 R-peak 보존: `docs/afe_stress/` (CSV+보고서).
 - 1.5 최신 locked model 재통합(ARR bit-exact): `docs/integration_latest/`.
+
+---
+
+## 회신 반영 (2026-07-09, 건이형 답신 처리 완료)
+- **A(windowing):** 규칙 `start = 2000 + chunk_id×1,800,000` 수령 → 우리 `fullrec_afe`에서 36 chunk 생성, `board_replay_36_cases.csv`의 `mem_sha256`과 **36/36 bit-identical** 확인. XSim **final_pred 36/36 · final_mem 35/36 exact** 재현. → `docs/integration_latest/`(§3.5), 생성기 `scripts/gen_30min_chunks.py`. **1.5 완결.**
+- **B(1.4 정렬):** canonical list 없음 확인 → test split 클래스당 9세그로 진행, 재현성 CSV 남김: `docs/afe_stress/afe_val36_segment_list.csv`.
+- **C(final_pred harness):** `docs/integration_latest/xsim_harness/`를 정본으로 사용. 2.1(ADC non-ideal) final_pred는 이 harness로 30분 chunk에 섭동 주입해 재실행(진행). 1.2(mismatch)는 30분 아날로그 XModel 비현실적 → 등가 논증(아래 보고서).
+- **D(scope):** 확정 문구를 `docs/afe_stress/AFE_xmodel_verification.md`(2.2·검증한계)에 그대로 반영.
