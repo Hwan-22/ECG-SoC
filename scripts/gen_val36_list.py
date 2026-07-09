@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 # [1.4 재현성] emu↔XModel 정합에 쓴 36개 60s 세그먼트 목록 CSV (건이형 권장 컬럼).
+import os as _os
+_ROOT = _os.environ.get('ECG_SOC_ROOT', _os.path.expanduser('~/ECG-SoC'))
 import os, csv
-ECG = "/home/soohwan/ECG-SoC"
+ECG = _ROOT + ""
 LIST = ECG + "/sim_out/afe_val/list.txt"
 OUT = ECG + "/docs/afe_stress/afe_val36_segment_list.csv"
 cols = ["class_label", "record_id", "segment_id", "start_time_s", "duration_s",

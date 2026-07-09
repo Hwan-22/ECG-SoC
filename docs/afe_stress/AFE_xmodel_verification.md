@@ -139,7 +139,13 @@
 - **유일 flip = NSR@noise 2LSB rms.** 임계 확인: noise **0.5·1.0 LSB → NSR 완전 유지(30/0/0/0)**, 2.0 LSB에서만 flip. 즉 **현실적 ADC 잡음(≤1 LSB)에선 견고**하고, 2 LSB(ENOB~10, nominal보다 잡음 많음) 백색잡음이 깨끗한 NSR의 저변동성 feature를 부풀려 발생하는 **분류기 민감성**(ARR-105와 동류의 cross-domain 발견, 알고리즘팀 영역).
 - 결과 CSV: `docs/afe_stress/adc_nonideal_finalpred_xsim.csv`(+`_map.csv`).
 
-**1.2(R/C mismatch) final_pred:** 30분 아날로그 XModel은 케이스당 ~70분으로 sweep 비현실적 → 등가 논증. 1.2 측정상 1% 최악 mismatch의 신호 섭동은 60Hz 잔차 ≤6.5mV(≈8 code, 신호 284mV 대비 <3%)이고 clipping 0. 이는 위 2.1에서 flip 없던 offset/gain 수준(그리고 noise ≤1LSB 견고)과 동급 이하의 섭동이며, 60Hz 성분은 능동 노치가 추가 억압 → **final_pred 유지로 추정**(직접 30분 XModel 미실행, 등가 근거).
+**요약 문구 (2.1):**
+> **EN:** Representative 30-min locked RTL regression under ADC non-ideal perturbations showed 15/16 final_pred stability. The only flip occurred for NSR under 2 LSB rms white-noise injection; noise ≤1 LSB, offset ±5 LSB, gain ±1%, and jitter 100 µs preserved final_pred.
+> **KR:** 대표 4-class 30분 chunk에 대한 ADC non-ideal locked RTL regression에서 final_pred는 15/16 유지되었다. 유일한 flip은 NSR chunk에 2 LSB rms 백색잡음을 주입했을 때 발생했으며, noise ≤1 LSB, offset ±5 LSB, gain ±1%, jitter 100 µs 조건에서는 final_pred가 유지되었다.
+
+**1.2(R/C mismatch) final_pred — equivalence-based robustness argument (직접 검증 아님):** 30분 아날로그 XModel sweep은 케이스당 ~70분으로 비현실적이라 직접 verify하지 않음. 대신 1.2 측정(1% 최악 mismatch: 60Hz 잔차 ≤6.5mV ≈8 code, 신호 284mV 대비 <3%, clipping 0, 능동 노치가 60Hz 추가 억압)과 위 2.1 ADC non-ideal final_pred regression 결과에 기반해 robustness를 제시.
+> **EN:** R/C mismatch final_pred stability is presented as an equivalence-based robustness argument, supported by XMODEL stress metrics and ADC non-ideal final_pred regression (not a direct 30-min XModel sweep).
+> **KR:** R/C mismatch의 final_pred 영향은 직접 30분 XModel sweep 결과가 아니라, XMODEL stress metric과 ADC non-ideal final_pred regression 결과에 기반한 equivalence-based robustness argument로 제시한다.
 
 ## 검증 한계 (디지털팀 공동 합의)
 > 입력 ECG는 실제 전극에서 새로 측정한 raw analog signal이 아니라 공개 digitized ECG record이다.

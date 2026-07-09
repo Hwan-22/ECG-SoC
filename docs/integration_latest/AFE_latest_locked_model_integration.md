@@ -2,13 +2,13 @@
 
 > 제27회 반도체설계대전 · 한양대 · 담당: 이수환(AFE) · 2026-07-06 (36-chunk 확장 2026-07-09)
 > 요청 1.5: "최신 locked digital model 기준으로도 AFE→분류 path가 유지되는가"
-> 결과: **우리 AFE+ADC 출력이 최신 locked model 입력과 전 36 chunk에서 sha256 bit-identical, XSim final_pred 36/36 일치**
+> 결과: **AFE 생성 36 chunk가 board-replay 입력과 SHA256 36/36 동일, canonical board-facing cadence(gap=2)에서 final_pred·final_membrane 36/36 bit-exact**
 
 ---
 
 ## 0. 핵심 결론 (3줄)
 1. 최신 locked model(`structural_guarded_silent_aff_1008710`)의 검증 입력 자체가 **우리 AFE+ADC 출력을 30분 윈도우로 자른 것**(`fullrec_afe_30min_...`) — 즉 test 80.56% / board replay 36/36은 이미 **우리 AFE 경로 위**의 결과다.
-2. **(36-chunk 확장)** 팀원 windowing 매핑으로 우리 `fullrec_afe`에서 생성한 **final_test 36 chunk 전부가 팀원 검증본과 sha256 bit-identical(36/36)**, 최신 locked RTL(`snn_ecg_30min_final_top`) Vivado XSim으로 **final_pred 36/36 · final_membrane 35/36 exact**(1건 경계 스냅샷 1표차, pred 불변) 재현.
+2. **(36-chunk 확장)** 팀원 windowing 매핑으로 우리 `fullrec_afe`에서 생성한 **final_test 36 chunk 전부가 팀원 board-replay 입력과 SHA256 bit-identical(36/36)**, **공식 board-facing XSim cadence(`sample_gap_cycles=2`)** 에서 최신 locked RTL(`snn_ecg_30min_final_top`)이 **final_pred 36/36 · final_membrane 36/36 bit-exact** 재현.
 3. **구버전 통합에서 유일하게 실패했던 ARR record 105(ARR→AFF 플립)가 최신 모델에서는 정답(ARR)으로 해소** — 구 통합 보고서의 "필터링 데이터 재학습" 권고가 반영된 것으로 확인.
 
 ---
@@ -49,28 +49,35 @@
 우리 `fullrec_afe`에서 byte-seek로 잘라낸 36 chunk의 sha256이 `board_replay_36_cases.csv`의 `mem_sha256`과 **36/36 완전 일치**.
 → 우리 AFE+ADC 출력에서 잘라낸 chunk가 팀원이 최신 locked model 검증에 쓴 실제 입력과 **바이트 단위로 동일**함이 해시로 증명(생성기 `scripts/gen_30min_chunks.py`).
 
-**(b) 분류 재현 — XSim final_pred 36/36**
-36 chunk를 최신 full-top RTL에 Vivado XSim 구동(`docs/integration_latest/xsim_harness`, 결과 `our_afe_36chunk_xsim_result.csv`):
+**(b) 분류 재현 — canonical cadence에서 final_pred 36/36 · final_membrane 36/36 bit-exact**
+36 chunk를 최신 full-top RTL에 **공식 board-facing XSim 입력 cadence**(`sample_gap_cycles = 2`, locked model/RTL 변경 없음)로 구동:
 
-| 지표 | 결과 |
+| 지표 | 결과 (canonical cadence) |
 |---|---|
-| **final_pred** vs 골든 | **36/36 일치** (오분류 case 60/49/220 등 골든의 오분류까지 동일 재현) |
-| **final_membrane** bit-exact | **35/36** (case 84 CHF chf06 w019만 1표차: ARR 10→9/AFF 32→33, **pred 동일 AFF**) |
-| 전 케이스 transport | samples 1,800,000 · windows 30 · decisions 1 정상 |
+| **final_pred** vs digital golden | **36/36 일치** (골든의 오분류 case 49/60까지 동일 재현) |
+| **final_membrane** bit-exact | **36/36 일치** |
+| 전 케이스 transport | samples 1,800,000 · accepted 1,800,000 · windows 30 · decisions 1 |
 
-- 유일 차이(case 84)는 입력이 sha256 identical임에도 발생한 **단일 경계-스냅샷 수치 민감성**(우리 XSim run vs 팀원 게시 fulltop값)이며 driving cadence(gap) 재현으로도 불변 → AFE 무관, **분류(pred) 영향 없음**.
-- 결론: **최신 locked model의 final_test 36 chunk 평가가 전부 우리 AFE 출력 위에서 성립**함을 입력 해시 + 분류 재현 양면으로 확증.
+- 공식 결과 artifact: `docs/integration_latest/afe_locked_rtl_integration_36case_compare.csv/.md` (전 row `sample_gap_cycles=2`, `pred_match=true`, `mem_match=true`, `input_sha256_match=true`).
+- 결론: **최신 locked model의 final_test 36 chunk 평가가 전부 우리 AFE 출력 위에서 성립**함을 입력 SHA256 identity + canonical cadence 분류 재현(pred·mem 36/36) 양면으로 확증.
+
+> (debug 참고, 공식 결과 아님) 초기 fast harness(`sample_gap_cycles=0`)에서는 case 84(CHF chf06 w019) 1건이 final_mem 1표차였으나, 이는 XSim sample-input cadence 차이일 뿐 AFE waveform 무관이며 **canonical cadence(gap=2)에서 36/36 bit-exact로 해소**됨. 최종 claim에는 canonical 결과만 사용.
 
 ## 4. ARR 105 — 구 통합 실패가 해소됨
 구 통합(`integration_report.md §7`): record 105 ARR이 AFE 경로에서 **ARR→AFF 플립**(score_arr 62704 → score_aff 33899로 역전), AFE-측 수정으로 해결 불가, 유일 해법=필터링 데이터 재학습(알고리즘팀).
 최신 locked model: 동일 record 105의 우리 AFE w000 입력에서 **final_pred=ARR(정답), membrane NSR8/CHF1/ARR21/AFF0** (ARR 압도적 우세). → 구 통합 권고가 최신 모델에 반영되어 **취약 케이스가 실제로 해소**됨을 우리 AFE 출력으로 재현 확인.
 
-## 5. 보고 문구
-> "AFE+ADC XMODEL 출력이 최신 locked SNN Accelerator IP(`structural_guarded_silent_aff_1008710`) 입력 형식(signed 12-bit, mid-code 2048, 1 kSPS)과 일치하며, 최신 full-top RTL을 우리 AFE 출력으로 XSim 구동한 결과 final_pred·final_membrane이 팀원 골든과 bit-exact 일치함을 확인했다. 구버전 통합의 ARR-105 오분류는 최신 locked model에서 해소되었다."
+## 5. 보고 문구 (최종, 공식)
+**EN:** AFE-generated final-test chunks were SHA256-identical to the digital board-replay inputs for all 36 chunks. Under the canonical board-facing XSim input cadence, the locked full-top RTL reproduced both final_pred and final_membrane bit-exact for all 36 final-test chunks.
+
+**KR:** AFE-generated final-test chunk는 36개 전부 digital board-replay 입력과 SHA256 기준으로 동일하였다. 공식 board-facing XSim 입력 cadence 조건에서 locked full-top RTL을 재실행한 결과, 36개 final-test chunk 모두에서 final_pred와 final_membrane이 bit-exact로 일치하였다.
+
+(부수 결과) 구버전 mixed-signal 통합의 ARR-105 오분류는 최신 locked model에서 정답(ARR)으로 해소됨(§4).
 
 ## 6. 범위/한계
-- **36 chunk 전체 재현 완료**(§3.5): 팀원 windowing 매핑 수령 후 sha256 36/36 + XSim final_pred 36/36으로 확장 완결(초기 ARR 3케이스 → 전체).
-- final_membrane 1건(case 84) 1표차는 경계-스냅샷 수치 민감성으로, 입력 bit-identity·pred 일치에 영향 없음(§3.5).
+- **36 chunk 전체 재현 완료**(§3.5): 팀원 windowing 매핑 수령 후 SHA256 36/36 + canonical cadence(gap=2) XSim final_pred·final_membrane 36/36 bit-exact로 확장 완결(초기 ARR 3케이스 → 전체).
+- 공식 결과는 canonical board-facing cadence(`sample_gap_cycles=2`) 기준만 사용. fast harness(gap=0)의 case 84 1표차는 debug artifact로만 분리(§3.5 각주).
+- physical AFE PCB / ADC silicon / clinical 검증은 범위 밖(model-based XMODEL/emulator 검증).
 
 ## 7. 재현 방법
 ```
@@ -83,9 +90,10 @@ xsim  tb_locked --nolog -tclbatch run.tcl            # -> result.csv
 # 3) 골든 대조
 python3 xsim_harness/compare.py
 
-# --- 36 chunk 전체(§3.5) ---
-python3 scripts/gen_30min_chunks.py 2000     # fullrec_afe → 36 chunk + sha256 36/36 검증
-#   생성 chunk를 scratch/chunks36/로 복사, manifest36(case expected 1800000 path) 구성 후
-xsim tb_locked --nolog -tclbatch run.tcl     # 36-case → result36.csv (~케이스당 5.5분)
-python3 scripts/compare36.py <result36.csv>  # final_pred 36/36, final_mem 35/36
+# --- 36 chunk 전체(§3.5), canonical cadence ---
+python3 scripts/gen_30min_chunks.py 2000       # fullrec_afe → 36 chunk
+python3 scripts/gen_sha256_bitidentity.py      # → afe36_sha256_bitidentity.csv (36/36)
+#   wrapper: DUT_SAMPLE_GAP_CYCLES(2)  (공식 board-facing cadence)
+xsim tb_locked_g2 --nolog -tclbatch run.tcl    # 36-case @ gap=2 → result_g2.csv
+python3 scripts/gen_36case_compare.py <result_g2.csv>  # → afe_locked_rtl_integration_36case_compare.csv (pred/mem 36/36)
 ```

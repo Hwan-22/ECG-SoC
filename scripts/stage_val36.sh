@@ -1,8 +1,8 @@
 #!/bin/bash
 # [1.4] emu↔XModel 36세그 검증용 스테이징: test split에서 클래스당 9세그(=36) 선택
 set -e
-D=/home/soohwan/ECG-SoC/datasets/strict60_large/raw/test/mem
-W=/home/soohwan/ECG-SoC/sim_out/afe_val
+D=$HOME/ECG-SoC/datasets/strict60_large/raw/test/mem
+W=$HOME/ECG-SoC/sim_out/afe_val
 mkdir -p "$W/raw" "$W/emu" "$W/xmodel" "$W/pwl"
 rm -f "$W/raw"/*.mem "$W/emu"/*.adc "$W/xmodel"/*.adc "$W/pwl"/*.pwl "$W"/conc_*.adc "$W"/conc_*.log
 : > "$W/list.txt"

@@ -1,9 +1,9 @@
 #!/bin/bash
 # 디지털 필터(AFE 등가)만 적용한 .mem을 digref로 분류 → 원인 격리.
 set -uo pipefail
-QUESTA_HOME=/home/soohwan/intelFPGA/25.1/questa_fse/questa_fse
-export LM_LICENSE_FILE=/home/soohwan/LR-164468_License.dat
-export MGLS_LICENSE_FILE=/home/soohwan/LR-164468_License.dat
+QUESTA_HOME=$HOME/intelFPGA/25.1/questa_fse/questa_fse
+export LM_LICENSE_FILE=$HOME/LR-164468_License.dat
+export MGLS_LICENSE_FILE=$HOME/LR-164468_License.dat
 PRJ="$(cd "$(dirname "$0")/.." && pwd)"
 VSIM="$QUESTA_HOME/bin/vsim"
 W="$PRJ/sim_out/digref"   # 기존 컴파일 work 재사용

@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
 # 스테이징된 검증 세그먼트들에 대해 XModel 정합 에뮬레이터 실행 → emu/*.adc
+import os as _os
+_ROOT = _os.environ.get('ECG_SOC_ROOT', _os.path.expanduser('~/ECG-SoC'))
 import sys, os
-sys.path.insert(0, '/home/soohwan/ECG-SoC/scripts')
+sys.path.insert(0, _ROOT + '/scripts')
 from afe_emu import read_mem_signed, afe_adc_unsigned
-W = '/home/soohwan/ECG-SoC/sim_out/afe_val'
+W = _ROOT + '/sim_out/afe_val'
 os.makedirs(W + '/emu', exist_ok=True)
 for line in open(W + '/list.txt'):
     f = line.strip()

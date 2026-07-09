@@ -2,6 +2,8 @@
 # -*- coding: utf-8 -*-
 # full WFDB record -> 1kSPS(linear) -> AFE+ADC (vectorized lfilter) -> unsigned 12-bit stream.
 #  xmodelmatch와 동일 AFE: /200000 -> HPF(0.482) -> x201 -> notch(60,Q5) -> LPF(150) -> ADC.
+import os as _os
+_ROOT = _os.environ.get('ECG_SOC_ROOT', _os.path.expanduser('~/ECG-SoC'))
 import numpy as np, math
 import wfdb
 from scipy.signal import lfilter
@@ -47,11 +49,11 @@ def read_record_1ksps(rec_path):
 
 if __name__ == "__main__":
     import sys
-    sys.path.insert(0, "/home/soohwan/ECG-SoC/scripts")
+    sys.path.insert(0, _ROOT + "/scripts")
     from afe_emu import afe_adc_unsigned as afe_slow, read_mem_signed
 
     REC = "/mnt/c/Users/USER/Downloads/handoff_to_suhwan/handoff_to_suhwan/selected_records/NSR/16265/16265"
-    XM = "/home/soohwan/ECG-SoC/datasets/afe_output_xmodelmatch/train/unsigned/0000_NSR_16265_60s_1640000ms.mem"
+    XM = _ROOT + "/datasets/afe_output_xmodelmatch/train/unsigned/0000_NSR_16265_60s_1640000ms.mem"
     START_S = 1640.0
 
     x1k, fs, nsrc = read_record_1ksps(REC)

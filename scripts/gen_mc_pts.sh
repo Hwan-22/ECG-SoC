@@ -1,5 +1,5 @@
 #!/bin/bash
-W=/home/soohwan/ECG-SoC/sim_out/multiclass
+W=$HOME/ECG-SoC/sim_out/multiclass
 gen() {  # $1=file $2=yc
   grep -v '^#' "$1" | awk -v yc="$2" '$1>=2200 && $1<=5200 && ($1%3==0){
     x=60+($1-2200)/3000.0*680;

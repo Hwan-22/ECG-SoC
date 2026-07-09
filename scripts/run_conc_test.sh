@@ -1,15 +1,15 @@
 #!/bin/bash
 # XModel 라이선스 동시실행(병렬) 가능 여부 경험적 테스트: N개 vsim 동시 기동, 체크아웃 성공/거부 집계.
 set -uo pipefail
-XMODEL_HOME=/home/soohwan/xmodel_2025.12_x86_64
-QUESTA_HOME=/home/soohwan/intelFPGA/25.1/questa_fse/questa_fse
+XMODEL_HOME=$HOME/xmodel_2025.12_x86_64
+QUESTA_HOME=$HOME/intelFPGA/25.1/questa_fse/questa_fse
 export LD_LIBRARY_PATH="$XMODEL_HOME/lib/x86_64:${LD_LIBRARY_PATH:-}"
 export SALMD_LICENSE_FILE=9524@52.79.127.207
-export LM_LICENSE_FILE=/home/soohwan/LR-164468_License.dat
-export MGLS_LICENSE_FILE=/home/soohwan/LR-164468_License.dat
-export SALT_LICENSE_SERVER=/home/soohwan/LR-164468_License.dat
+export LM_LICENSE_FILE=$HOME/LR-164468_License.dat
+export MGLS_LICENSE_FILE=$HOME/LR-164468_License.dat
+export SALT_LICENSE_SERVER=$HOME/LR-164468_License.dat
 VSIM="$QUESTA_HOME/bin/vsim"
-W=/home/soohwan/ECG-SoC/sim_out/afe_val
+W=$HOME/ECG-SoC/sim_out/afe_val
 cd "$W" || exit 1
 mapfile -t PW < <(ls pwl/*.pwl | head -4)
 N=${1:-3}

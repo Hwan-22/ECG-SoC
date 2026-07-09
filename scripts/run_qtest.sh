@@ -1,9 +1,9 @@
 #!/bin/bash
 # 노치 Q를 높여(좁게) ARR 플립이 복구되는지 검증 (디지털 등가 full 체인).
-PRJ=/home/soohwan/ECG-SoC
-QH=/home/soohwan/intelFPGA/25.1/questa_fse/questa_fse
-export LM_LICENSE_FILE=/home/soohwan/LR-164468_License.dat
-export MGLS_LICENSE_FILE=/home/soohwan/LR-164468_License.dat
+PRJ=$HOME/ECG-SoC
+QH=$HOME/intelFPGA/25.1/questa_fse/questa_fse
+export LM_LICENSE_FILE=$HOME/LR-164468_License.dat
+export MGLS_LICENSE_FILE=$HOME/LR-164468_License.dat
 for q in 10 15 20 40; do
   python3 "$PRJ/scripts/filter_mem.py" full "$q" "fullQ$q" >/dev/null
 done

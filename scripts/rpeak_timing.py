@@ -5,13 +5,15 @@
 #   대상: strict60_large/raw/test (분류기 test 60s 세그) 전체 = "final_test"
 #   측정: R-peak timing shift[ms](중앙값=군지연, 표준편차=지터), 매칭율/누락,
 #         RR interval error[ms](군지연 불변), QRS 대역 상관도
+import os as _os
+_ROOT = _os.environ.get('ECG_SOC_ROOT', _os.path.expanduser('~/ECG-SoC'))
 import os, sys, glob, csv
 import numpy as np
-sys.path.insert(0, "/home/soohwan/ECG-SoC/scripts")
+sys.path.insert(0, _ROOT + "/scripts")
 from afe_analysis_lib import (read_mem_signed, afe_float, quantize,
                               detect_rpeaks, match_peaks, rr_intervals, fs)
 
-ECG = "/home/soohwan/ECG-SoC"
+ECG = _ROOT + ""
 OUTDIR = ECG + "/docs/afe_stress"; os.makedirs(OUTDIR, exist_ok=True)
 SETTLE = 2000
 

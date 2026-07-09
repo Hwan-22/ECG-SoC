@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
 # XModel 실측(xmodel/*.adc) vs 에뮬레이터(emu/*.adc) 샘플단위 비교.
 #  HPF 정착(앞 3s) 제외, 소량 lag(-3..3) 탐색해 RMS/max 오차(LSB) 보고.
+import os as _os
+_ROOT = _os.environ.get('ECG_SOC_ROOT', _os.path.expanduser('~/ECG-SoC'))
 import os
-W = '/home/soohwan/ECG-SoC/sim_out/afe_val'
+W = _ROOT + '/sim_out/afe_val'
 SKIP = 3000
 
 

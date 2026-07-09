@@ -2,13 +2,13 @@
 # [2.2] 50Hz vs 60Hz PLI 제거 비교 (tb_ecg_pli_freq.sv)
 #   60Hz notch 중심 대비 50Hz에서 잔차가 얼마나 커지는지 정량화.
 set -uo pipefail
-XMODEL_HOME=/home/soohwan/xmodel_2025.12_x86_64
-QUESTA_HOME=/home/soohwan/intelFPGA/25.1/questa_fse/questa_fse
+XMODEL_HOME=$HOME/xmodel_2025.12_x86_64
+QUESTA_HOME=$HOME/intelFPGA/25.1/questa_fse/questa_fse
 export LD_LIBRARY_PATH="$XMODEL_HOME/lib/x86_64:${LD_LIBRARY_PATH:-}"
 export SALMD_LICENSE_FILE=9524@52.79.127.207
-export LM_LICENSE_FILE=/home/soohwan/LR-164468_License.dat
-export MGLS_LICENSE_FILE=/home/soohwan/LR-164468_License.dat
-export SALT_LICENSE_SERVER=/home/soohwan/LR-164468_License.dat
+export LM_LICENSE_FILE=$HOME/LR-164468_License.dat
+export MGLS_LICENSE_FILE=$HOME/LR-164468_License.dat
+export SALT_LICENSE_SERVER=$HOME/LR-164468_License.dat
 PRJ="$(cd "$(dirname "$0")/.." && pwd)"
 VLOG="$QUESTA_HOME/bin/vlog"; VLIB="$QUESTA_HOME/bin/vlib"; VSIM="$QUESTA_HOME/bin/vsim"
 COMMON="-sv -mfcu +define+XMODEL +define+XMODEL_TIMEPRECISION=1ns +incdir+$XMODEL_HOME/include -work work"

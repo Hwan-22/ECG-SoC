@@ -6,10 +6,12 @@
 #   측정: ADC unsigned code min/max, count(==0), count(==4095), clip ratio
 #         head 2s(HPF settling) 제외 전/후 분리
 #   출력: docs/afe_stress/clipping_report_*.csv + stdout 요약
+import os as _os
+_ROOT = _os.environ.get('ECG_SOC_ROOT', _os.path.expanduser('~/ECG-SoC'))
 import os, sys, csv, glob
 import numpy as np
 
-ECG = "/home/soohwan/ECG-SoC"
+ECG = _ROOT + ""
 OUTDIR = ECG + "/docs/afe_stress"
 os.makedirs(OUTDIR, exist_ok=True)
 SETTLE = 2000  # 앞 2s(2000샘플) = HPF 과도구간

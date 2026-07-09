@@ -41,9 +41,9 @@ LTspice 회로 설계 + XModel(Questa) 통합 검증 + FPGA(Nexys A7) board repl
 
 | 팀원 | 역할 | 자료 |
 |---|---|---|
-| 이수환 (팀장) | AFE·ADC 설계 + 통합 검증 | `analog/`, `docs/`, `datasets/fullrec_afe*` |
-| 양건 | 디지털 SNN accelerator + FPGA | `digital_block/` · [SNN-ECG-4-Class-Classifier](https://github.com/Sheep-gun/SNN-ECG-4-Class-Classifier) |
-| 서민우 | 알고리즘·데이터·학습 | `algorithm/` , `matlab_afe_validation/` |
+| 양건 (팀장) | 디지털 SNN accelerator / RTL / Vivado / Vitis / FPGA·IP packaging | `digital_block/` · [SNN-ECG-4-Class-Classifier](https://github.com/Sheep-gun/SNN-ECG-4-Class-Classifier) |
+| 서민우 | MATLAB AFE+ADC nominal pre-validation / reference vector generation | `matlab_afe_validation/` |
+| 이수환 | SystemVerilog XMODEL AFE+ADC verification / mixed-signal-to-digital integration | `analog/`, `docs/`, `datasets/fullrec_afe*` |
 
 ---
 
@@ -86,10 +86,21 @@ LTspice 회로 설계 + XModel(Questa) 통합 검증 + FPGA(Nexys A7) board repl
 
 ```
 [1] AFE 특성/PLI      → XModel+Questa  (make char / make pli)
-[2] Mixed-signal 통합 → AFE + SNN core (scripts/run_mixed_all.sh)
-[3] full-record AFE   → datasets/fullrec_afe(59) + fullrec_afe_remaining(68) = DB 전체
-[4] 디지털 RTL/보드    → Vivado XSim + Nexys A7 board replay (36/36 exact)
+[2] full-record AFE   → datasets/fullrec_afe(59) + fullrec_afe_remaining(68) = DB 전체
+[3] AFE → 30분 chunk  → SHA256 36/36 identical to digital board-replay input
+[4] AFE → locked RTL  → canonical XSim cadence로 final_pred·final_membrane 36/36 bit-exact
 ```
+
+두 가지 **36/36**은 의미가 다르므로 분리해서 읽어야 함:
+
+- **Digital board replay** (양건, 디지털 IP 자체 검증)
+  - board-facing digital IP replay validation
+  - final_pred / final_mem matched digital expected outputs for **36/36** final-test chunks
+
+- **AFE → locked RTL XSim integration** (이수환, mixed-signal 통합 검증)
+  - AFE-generated chunks were **SHA256-identical** to board-replay inputs for **36/36** chunks
+  - under **canonical board-facing XSim cadence**, final_pred and final_mem reproduced locked digital golden results for **36/36** chunks
+  - 상세: **[docs/integration_latest/AFE_latest_locked_model_integration.md](docs/integration_latest/AFE_latest_locked_model_integration.md)** · 검증 요약: **[docs/VALIDATION_STATUS.md](docs/VALIDATION_STATUS.md)**
 
 - AFE 시뮬은 FPGA 보드 불필요(WSL XModel+Questa). 실행: `cd ~/ECG-SoC && make sim`
 

@@ -3,15 +3,17 @@
 # full WFDB record -> 1kSPS(linear) -> AFE+ADC -> signed 12-bit .mem (record 전체 스트림).
 #  구조: <OUT>/<split>/<class>/<record>.mem  + manifest CSV
 #  사용: python3 afe_fullrec_gen.py <pilot N | full>
+import os as _os
+_ROOT = _os.environ.get('ECG_SOC_ROOT', _os.path.expanduser('~/ECG-SoC'))
 import os, sys, csv, time, glob
 import numpy as np
-sys.path.insert(0, "/home/soohwan/ECG-SoC/scripts")
+sys.path.insert(0, _ROOT + "/scripts")
 from afe_full import read_record_1ksps, afe_adc_unsigned
 
 HANDOFF = "/mnt/c/Users/USER/Downloads/handoff_to_suhwan/handoff_to_suhwan"
 SEL_MAN = HANDOFF + "/selected_records_manifest.csv"
-STRICT_MAN_GLOB = "/home/soohwan/ECG-SoC/datasets/strict60_large/afe_manifest_*_strict60_large.csv"
-ECG = "/home/soohwan/ECG-SoC"
+STRICT_MAN_GLOB = _ROOT + "/datasets/strict60_large/afe_manifest_*_strict60_large.csv"
+ECG = _ROOT + ""
 
 mode = sys.argv[1] if len(sys.argv) > 1 else "pilot"
 N = int(sys.argv[2]) if (mode == "pilot" and len(sys.argv) > 2) else 3

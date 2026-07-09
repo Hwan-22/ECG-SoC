@@ -13,8 +13,8 @@ sep
 echo -e "${BLD}  ECG AFE XModel + Questa  v4.0${NC}"
 sep
 
-XMODEL_HOME="${XMODEL_HOME:-/home/soohwan/xmodel_2025.12_x86_64}"
-QUESTA_HOME="${QUESTA_HOME:-/home/soohwan/intelFPGA/25.1/questa_fse/questa_fse}"
+XMODEL_HOME="${XMODEL_HOME:-$HOME/xmodel_2025.12_x86_64}"
+QUESTA_HOME="${QUESTA_HOME:-$HOME/intelFPGA/25.1/questa_fse/questa_fse}"
 VLIB="${QUESTA_HOME}/bin/vlib"
 VLOG="${QUESTA_HOME}/bin/vlog"
 VSIM="${QUESTA_HOME}/bin/vsim"

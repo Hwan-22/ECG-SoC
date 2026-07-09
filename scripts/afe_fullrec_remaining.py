@@ -3,15 +3,17 @@
 # 나머지 원본 WFDB record -> full-record AFE+ADC (fullrec_afe와 동일 조건) -> signed12 .mem
 #  입력: handoff_to_suhwan_remaining_records / remaining_original_records/<class>/<rec>/
 #  출력: datasets/fullrec_afe_remaining/<split>/<class>/<rec>.mem + manifest
+import os as _os
+_ROOT = _os.environ.get('ECG_SOC_ROOT', _os.path.expanduser('~/ECG-SoC'))
 import os, sys, csv, time, glob
 import numpy as np
-sys.path.insert(0, "/home/soohwan/ECG-SoC/scripts")
+sys.path.insert(0, _ROOT + "/scripts")
 from afe_full import read_record_1ksps, afe_adc_unsigned
 
 ROOT = "/mnt/c/Users/USER/Downloads/handoff_remaining/handoff_to_suhwan_remaining_records"
 MAN_IN = ROOT + "/remaining_records_manifest.csv"
 RECDIR = ROOT + "/remaining_original_records"
-ECG = "/home/soohwan/ECG-SoC"
+ECG = _ROOT + ""
 OUT = ECG + "/datasets/fullrec_afe_remaining"
 
 # split map: 기존 record-wise split (strict60_large + strict_varlen)
