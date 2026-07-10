@@ -66,7 +66,7 @@ LTspice 회로 설계 + XModel(Questa) 통합 검증 + FPGA(Nexys A7) board repl
 
 *모델 이상매칭 가정; 실제는 저항 오차로 제한. XModel 설계 정본 = `analog/ecg_afe_xmodel.sv`, 회로도 = `ECG_AFE_LTspice/ecg_afe.asc`.
 
-> **ADC 방향**: FPGA 데모는 **XADC**(내장), 커스텀 SAR ADC는 비합성 SoC 설계물로 유지. 스케일 정합 산출은 `docs/AFE_ADC_XADC_decision.md`.
+> **ADC / FPGA 검증 방식**: 현재 FPGA 검증은 canonical signed 12-bit `.mem` stream을 이용한 **MicroBlaze board replay**이다. **Live XADC-in-loop ECG acquisition은 현재 검증 범위에 포함되지 않는다.** XADC 적용 시에는 SAR/XADC voltage-scale 및 digital threshold 정합에 대한 별도 검증이 필요하다. (커스텀 SAR ADC는 비합성 SoC 설계물로 유지; 스케일 정합 산출 `docs/AFE_ADC_XADC_decision.md`.)
 
 ---
 

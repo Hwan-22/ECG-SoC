@@ -3,8 +3,8 @@
 # full WFDB record -> 1kSPS(linear) -> AFE+ADC -> signed 12-bit .mem (record 전체 스트림).
 #  구조: <OUT>/<split>/<class>/<record>.mem  + manifest CSV
 #  사용: python3 afe_fullrec_gen.py <pilot N | full>
-import os as _os
-_ROOT = _os.environ.get('ECG_SOC_ROOT', _os.path.expanduser('~/ECG-SoC'))
+import os as _os, pathlib as _pl
+_ROOT = _os.environ.get('ECG_SOC_ROOT', str(_pl.Path(__file__).resolve().parents[1]))
 import os, sys, csv, time, glob
 import numpy as np
 sys.path.insert(0, _ROOT + "/scripts")

@@ -5,8 +5,8 @@
 #   대상: strict60_large/raw/test (분류기 test 60s 세그) 전체 = "final_test"
 #   측정: R-peak timing shift[ms](중앙값=군지연, 표준편차=지터), 매칭율/누락,
 #         RR interval error[ms](군지연 불변), QRS 대역 상관도
-import os as _os
-_ROOT = _os.environ.get('ECG_SOC_ROOT', _os.path.expanduser('~/ECG-SoC'))
+import os as _os, pathlib as _pl
+_ROOT = _os.environ.get('ECG_SOC_ROOT', str(_pl.Path(__file__).resolve().parents[1]))
 import os, sys, glob, csv
 import numpy as np
 sys.path.insert(0, _ROOT + "/scripts")

@@ -2,8 +2,8 @@
 # -*- coding: utf-8 -*-
 # [2.1 final_pred] ADC 섭동 chunk XSim 결과 vs 깨끗한 golden(clean) 대조 → 분류 flip 여부.
 #  사용: python3 compare_pert.py <pert_result.csv>
-import os as _os
-_ROOT = _os.environ.get('ECG_SOC_ROOT', _os.path.expanduser('~/ECG-SoC'))
+import os as _os, pathlib as _pl
+_ROOT = _os.environ.get('ECG_SOC_ROOT', str(_pl.Path(__file__).resolve().parents[1]))
 import sys, csv
 ECG = _ROOT + ""
 CASES = ECG + "/digital_block/reports/final/board_replay_36_cases.csv"

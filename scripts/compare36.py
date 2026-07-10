@@ -2,8 +2,8 @@
 # -*- coding: utf-8 -*-
 # 36-case XSim 결과(우리 AFE chunk) vs 팀원 golden(fulltop XSim) 대조.
 #  사용: python3 compare36.py <our_result.csv>
-import os as _os
-_ROOT = _os.environ.get('ECG_SOC_ROOT', _os.path.expanduser('~/ECG-SoC'))
+import os as _os, pathlib as _pl
+_ROOT = _os.environ.get('ECG_SOC_ROOT', str(_pl.Path(__file__).resolve().parents[1]))
 import sys, csv, os
 ECG = _ROOT + ""
 GOLD = ECG + "/digital_block/reports/final/fulltop_xsim_final_test_36/locked_class_cases_fulltop_xsim_predictions.csv"

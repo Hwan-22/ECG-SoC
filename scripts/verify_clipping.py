@@ -6,8 +6,8 @@
 #   측정: ADC unsigned code min/max, count(==0), count(==4095), clip ratio
 #         head 2s(HPF settling) 제외 전/후 분리
 #   출력: docs/afe_stress/clipping_report_*.csv + stdout 요약
-import os as _os
-_ROOT = _os.environ.get('ECG_SOC_ROOT', _os.path.expanduser('~/ECG-SoC'))
+import os as _os, pathlib as _pl
+_ROOT = _os.environ.get('ECG_SOC_ROOT', str(_pl.Path(__file__).resolve().parents[1]))
 import os, sys, csv, glob
 import numpy as np
 

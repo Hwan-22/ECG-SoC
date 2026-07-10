@@ -40,7 +40,7 @@
 
 - 전 케이스 `samples_driven=1,800,000`, `windows=30`, `decisions=1` (전송·스냅샷·판정 정상).
 - 골든 출처: `digital_block/reports/final/fulltop_xsim_final_test_36/locked_class_cases_fulltop_xsim_predictions.csv` (board replay 36/36과 일치한 정본).
-- (참고) prof cycle 수는 driving cadence 차이로 다르나(우리 3.60M vs 골든 5.40M), 모델은 샘플 도메인에서 결정적이라 **분류 결과는 완전 동일**.
+- 초기 ARR 3-case에서는 서로 다른 driving cadence에서도 final output이 일치했다. 다만 공식 AFE→locked RTL integration 결과는 digital golden과 동일한 **canonical board-facing cadence(`sample_gap_cycles=2`)** 를 기준으로 한다. (전체 RTL이 임의 cadence에 invariant하다고 일반화하지 않음.)
 
 ## 3.5 (확장, 2026-07-09) final_test 36 chunk 전체 재현
 팀원 windowing 정의(`start_sample = 2000 + chunk_id×1,800,000`, 소스=우리 `fullrec_afe`)로 **36 chunk 전부**를 생성해 검증.
@@ -61,7 +61,7 @@
 - 공식 결과 artifact: `docs/integration_latest/afe_locked_rtl_integration_36case_compare.csv/.md` (전 row `sample_gap_cycles=2`, `pred_match=true`, `mem_match=true`, `input_sha256_match=true`).
 - 결론: **최신 locked model의 final_test 36 chunk 평가가 전부 우리 AFE 출력 위에서 성립**함을 입력 SHA256 identity + canonical cadence 분류 재현(pred·mem 36/36) 양면으로 확증.
 
-> (debug 참고, 공식 결과 아님) 초기 fast harness(`sample_gap_cycles=0`)에서는 case 84(CHF chf06 w019) 1건이 final_mem 1표차였으나, 이는 XSim sample-input cadence 차이일 뿐 AFE waveform 무관이며 **canonical cadence(gap=2)에서 36/36 bit-exact로 해소**됨. 최종 claim에는 canonical 결과만 사용.
+(재현성 참고용 debug 이력 — fast/non-canonical cadence의 case84 note는 공식 결과와 분리: `docs/integration_latest/debug/fast_harness_cadence_note.md`)
 
 ## 4. ARR 105 — 구 통합 실패가 해소됨
 구 통합(`integration_report.md §7`): record 105 ARR이 AFE 경로에서 **ARR→AFF 플립**(score_arr 62704 → score_aff 33899로 역전), AFE-측 수정으로 해결 불가, 유일 해법=필터링 데이터 재학습(알고리즘팀).
@@ -76,7 +76,7 @@
 
 ## 6. 범위/한계
 - **36 chunk 전체 재현 완료**(§3.5): 팀원 windowing 매핑 수령 후 SHA256 36/36 + canonical cadence(gap=2) XSim final_pred·final_membrane 36/36 bit-exact로 확장 완결(초기 ARR 3케이스 → 전체).
-- 공식 결과는 canonical board-facing cadence(`sample_gap_cycles=2`) 기준만 사용. fast harness(gap=0)의 case 84 1표차는 debug artifact로만 분리(§3.5 각주).
+- 공식 결과는 canonical board-facing cadence(`sample_gap_cycles=2`) 기준만 사용. fast harness(gap=0)의 case 84 1표차는 공식 결과에서 제외하고 재현성 note로만 분리: `docs/integration_latest/debug/fast_harness_cadence_note.md`.
 - physical AFE PCB / ADC silicon / clinical 검증은 범위 밖(model-based XMODEL/emulator 검증).
 
 ## 7. 재현 방법

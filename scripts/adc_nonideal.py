@@ -6,8 +6,8 @@
 #   측정(세그 평균): ADC code RMS 편차[LSB], max 편차[LSB], clipping 증가,
 #                   R-peak timing shift[ms], R-peak 개수변화, RR interval err[ms]
 #   주: final_pred(분류결과) 변화는 SNN 통합경로(검증 1.5) 필요 → 여기선 AFE/ADC측 지표까지.
-import os as _os
-_ROOT = _os.environ.get('ECG_SOC_ROOT', _os.path.expanduser('~/ECG-SoC'))
+import os as _os, pathlib as _pl
+_ROOT = _os.environ.get('ECG_SOC_ROOT', str(_pl.Path(__file__).resolve().parents[1]))
 import os, sys, glob, csv
 import numpy as np
 sys.path.insert(0, _ROOT + "/scripts")

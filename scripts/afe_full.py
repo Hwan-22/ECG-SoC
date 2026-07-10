@@ -2,8 +2,8 @@
 # -*- coding: utf-8 -*-
 # full WFDB record -> 1kSPS(linear) -> AFE+ADC (vectorized lfilter) -> unsigned 12-bit stream.
 #  xmodelmatch와 동일 AFE: /200000 -> HPF(0.482) -> x201 -> notch(60,Q5) -> LPF(150) -> ADC.
-import os as _os
-_ROOT = _os.environ.get('ECG_SOC_ROOT', _os.path.expanduser('~/ECG-SoC'))
+import os as _os, pathlib as _pl
+_ROOT = _os.environ.get('ECG_SOC_ROOT', str(_pl.Path(__file__).resolve().parents[1]))
 import numpy as np, math
 import wfdb
 from scipy.signal import lfilter

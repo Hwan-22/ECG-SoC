@@ -4,8 +4,8 @@
 #  windowing(팀원 manifest): start_sample = SKIP + chunk_id*1,800,000, 길이 1,800,000
 #  .mem 포맷 고정 'xxx\n'(4 byte/line) → byte-seek 고속 슬라이스.
 #  사용: python3 gen_30min_chunks.py [SKIP]   (기본 2000)
-import os as _os
-_ROOT = _os.environ.get('ECG_SOC_ROOT', _os.path.expanduser('~/ECG-SoC'))
+import os as _os, pathlib as _pl
+_ROOT = _os.environ.get('ECG_SOC_ROOT', str(_pl.Path(__file__).resolve().parents[1]))
 import os, sys, csv, glob, hashlib
 ECG = _ROOT + ""
 CASES = ECG + "/digital_block/reports/final/board_replay_36_cases.csv"

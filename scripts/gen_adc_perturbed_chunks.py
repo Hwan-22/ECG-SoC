@@ -3,8 +3,8 @@
 # [2.1 final_pred] 깨끗한 30분 chunk의 signed code에 ADC 비이상성 주입 → 섭동 .mem 생성.
 #  code_signed ∝ Vin(중심0)이므로: gain→×(1+g), offset→+LSB, noise→+N(0,σ), jitter→시점 재표본.
 #  clip[-2048,2047] 후 signed 3-hex 재인코드. XSim은 이후 직렬 실행.
-import os as _os
-_ROOT = _os.environ.get('ECG_SOC_ROOT', _os.path.expanduser('~/ECG-SoC'))
+import os as _os, pathlib as _pl
+_ROOT = _os.environ.get('ECG_SOC_ROOT', str(_pl.Path(__file__).resolve().parents[1]))
 import os, sys, csv
 import numpy as np
 ECG = _ROOT + ""

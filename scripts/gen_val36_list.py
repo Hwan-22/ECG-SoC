@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 # [1.4 재현성] emu↔XModel 정합에 쓴 36개 60s 세그먼트 목록 CSV (건이형 권장 컬럼).
-import os as _os
-_ROOT = _os.environ.get('ECG_SOC_ROOT', _os.path.expanduser('~/ECG-SoC'))
+import os as _os, pathlib as _pl
+_ROOT = _os.environ.get('ECG_SOC_ROOT', str(_pl.Path(__file__).resolve().parents[1]))
 import os, csv
 ECG = _ROOT + ""
 LIST = ECG + "/sim_out/afe_val/list.txt"
@@ -23,7 +23,7 @@ for line in open(LIST):
         start_time_s=round(start_ms / 1000.0, 3), duration_s=60,
         afe_adc_signed_file=f"datasets/afe_output_xmodelmatch/test/signed/{f}",
         raw_mem_file=f"datasets/strict60_large/raw/test/mem/{f}",
-        afe_model="xmodelmatch_emulator (XModel 실측 대조: sim_out/afe_val/xmodel/)",
+        afe_model="xmodelmatch_emulator (vs XMODEL/Questa simulation: sim_out/afe_val/xmodel/)",
         label_verified="true"))
 with open(OUT, "w", newline="") as o:
     w = csv.DictWriter(o, fieldnames=cols); w.writeheader(); w.writerows(rows)

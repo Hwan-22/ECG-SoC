@@ -5,8 +5,8 @@
 #  출력: afe_input_dataset/afe_input_{class}.csv  (sample_index,time_s,code_signed,voltage_V)
 #        + real_ecg_100(360Hz native NSR record 100) → afe_input_record100_NSR.csv
 #  스케일: voltage_V = code_signed / 200000  (= AFE .sv 주입식과 동일)
-import os as _os
-_ROOT = _os.environ.get('ECG_SOC_ROOT', _os.path.expanduser('~/ECG-SoC'))
+import os as _os, pathlib as _pl
+_ROOT = _os.environ.get('ECG_SOC_ROOT', str(_pl.Path(__file__).resolve().parents[1]))
 import os, csv
 ROOT = _ROOT + ""
 OUT = os.path.join(ROOT, "afe_input_dataset")

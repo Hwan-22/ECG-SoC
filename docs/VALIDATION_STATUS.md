@@ -12,7 +12,7 @@
 | 전극 offset / baseline wander | **PASS** | `docs/afe_stress/AFE_xmodel_verification.md` | HPF-before-gain → ±200mV offset에도 정착 후 clipping 0 |
 | R/C mismatch | **PARTIAL (equivalence)** | `docs/afe_stress/AFE_xmodel_verification.md` | 0.1% CMRR 100.7dB/1% 80dB; final_pred는 equivalence-based robustness argument |
 | op-amp GBW / VOS | **PASS (caveat)** | `docs/afe_stress/AFE_xmodel_verification.md` | GBW 100kHz까지 ECG 영향 ≤2 code; VOS ×201 headroom → 저오프셋/DC servo 권장 |
-| ADC non-ideal final_pred | **PASS (one extreme flip)** | `docs/afe_stress/adc_nonideal_finalpred_xsim.csv` (+`_map.csv`) | 15/16 유지; offset/gain/jitter·noise≤1LSB 안정, noise 2LSB rms에서 NSR 1건 flip |
+| ADC non-ideal final_pred | **PASS (one extreme flip)** | `docs/afe_stress/adc_nonideal_finalpred_xsim.csv` (+`_map.csv`), threshold `adc_nonideal_noise_threshold_xsim.csv/.md` | 15/16 유지; offset±5LSB/gain±1%/jitter100µs·noise≤1LSB 안정, noise 2LSB rms에서만 NSR 1건 flip |
 | AFE→locked RTL integration | **PASS** | `docs/integration_latest/afe_locked_rtl_integration_36case_compare.csv` · `afe36_sha256_bitidentity.csv` | SHA256 36/36 identical + canonical cadence(gap=2)에서 final_pred·final_membrane 36/36 bit-exact |
 | physical PCB / silicon / clinical | **NOT DONE** | scope limitation | 물리 계측/silicon/임상 claim 금지 (model-based verification) |
 

@@ -1,7 +1,8 @@
 # AFE XModel 추가 검증 보고서 — 1.4 / 2.2 / 1.3 (+ 1.2 / 2.4)
 
 > 제27회 반도체설계대전 · 한양대 · 담당: 이수환(AFE) · 2026-07-06
-> XModel(Questa+XModel 2025.12) 실측 기반. 환경 스모크(`make sim`) 통과 후 수행.
+> XMODEL/Questa(XModel 2025.12) 시뮬레이션 기반 특성 측정. 환경 스모크(`make sim`) 통과 후 수행.
+> (physical PCB/silicon measurement 아님 — model-based verification)
 
 ---
 
@@ -19,9 +20,8 @@
 
 - **평균 RMS 1.95 LSB < 2 LSB 기준 충족**, 전 세그 lag 0(위상 일치). 기존 8세그 검증(2.01 LSB, max~27)과 일관.
 - max 편차(최대 30 LSB)는 **QRS 급경사 구간의 sub-sample 타이밍 민감도**(XModel 연속솔버 vs emulator 이산 IIR의 1샘플 미만 차이가 최대기울기에서 큰 code차로 증폭)에 국한. RMS로 보면 전체 충실도는 ~2 LSB.
-- 이 ~2 LSB 차이는 2.1에서 **noise 2 LSB rms 주입 시 분류결과·R-peak 불변**으로 확인된 수준 이하 → 디지털팀이 쓰는 emulator .mem은 실제 XModel과 분류상 등가.
-
-> **문구:** "디지털팀 입력 .mem 생성기(afe_emu)가 실제 XModel AFE와 36세그 평균 RMS 1.95 LSB·lag 0으로 일치. 편차는 QRS 첨두의 sub-sample 타이밍에 국한되며 분류 영향 없는 수준(2.1의 2 LSB noise 불변성 이하)."
+> **문구 (classification stability claim 정합):**
+> emu↔XModel의 평균 RMS 차이는 1.95 LSB, lag 0으로 waveform-level 정합성이 높다. 다만 ADC non-ideal locked RTL regression에서는 noise 2 LSB rms 조건에서 NSR 1건의 final_pred flip이 관찰되었다. 따라서 classification stability claim은 noise ≤1 LSB 조건에서 안정적이며, 2 LSB rms는 extreme stress에서 일부 민감성이 존재하는 것으로 제한한다. (상세: `docs/afe_stress/adc_nonideal_finalpred_xsim.csv` · threshold `adc_nonideal_noise_threshold_xsim.csv`)
 
 ---
 
@@ -37,10 +37,10 @@
 - 60Hz는 능동 Twin-T 노치(80dB)+CMRR로 **거의 완전 제거**(0.92mV).
 - 50Hz는 60Hz 노치의 null 밖이라 **차동 간섭이 IA 이득(×201)으로 그대로 통과** → 128배 큰 잔차. 즉 노치는 설계대로 60Hz 선택적.
 
-> **결론(스코프):** 본 설계는 **60Hz(한국 mains) 대상**이며, 50Hz 환경은 **notch center를 50Hz로 retune**하면 동일 성능 확보(RT/RB/CT 값 f₀=50Hz로 재계산). 약점이 아니라 대상 명확화.
+> **결론(스코프, 확정 문구):**
+> 본 설계의 검증 target은 60 Hz mains 환경이다. 50 Hz 환경에서는 notch center-frequency retuning이 필요하다. 50 Hz retuned variant의 attenuation 및 system-level 성능은 별도의 XMODEL 검증 대상이다.
 
-**합의 문구(디지털팀 확정):**
-> 본 설계의 notch target은 60 Hz 환경을 기준으로 한다. 50 Hz power-line 환경에서는 notch center frequency retuning이 필요하며, 50 Hz 결과는 설계 scope 밖의 stress/portability check로 해석한다.
+(주: 50 Hz retuned XMODEL simulation은 직접 실행하지 않았으므로 "retune 시 동일 성능"은 주장하지 않음 — retuning **필요성**만 명시.)
 
 ---
 
@@ -81,9 +81,10 @@
 **결론**
 - **0.1% 정밀저항에서 CMRR 100.7 dB — >100dB 스펙 충족.** 이는 기존 문서의 보수적 추정(bare diff-amp 기준 ~66dB)보다 크게 우수한데, **3-op-amp IA 1단이 차동 ×201·공통모드 ×1로 미리 분리**하여 뒤단 diff-amp의 저항 mismatch 영향을 ~46dB 완화하기 때문(측정으로 입증).
 - 1% 최악 mismatch에서도 CMRR 80 dB 유지, **60Hz 잔차 ≤6.5mV·clipping 0**. 60Hz 제거는 CMRR이 아니라 능동 노치가 주력이므로 mismatch에도 방어됨(2.2와 일관).
-- 잔차 ≤6.5mV(~8 code)는 신호 284mV 대비 <3%, 2.1의 noise 2 LSB 불변성 이하 → 분류 영향 없음 예상(final_pred 확정은 1.5 통합경로 필요).
+- 잔차 ≤6.5mV(~8 code)는 신호 284mV 대비 <3%, clipping 0. (classification 영향은 직접 검증이 아니라 아래 equivalence argument로 제시.)
 
-> **문구:** "실제 0.1% 저항 mismatch에서 CMRR 100.7dB(>100dB 충족), 1%에서도 80dB. 3-op IA 구조가 mismatch에 강건하며 60Hz 잔차·clipping 무시 가능."
+> **문구 (확정, equivalence-based):**
+> 1% worst-case mismatch에서 CMRR 80 dB, 60 Hz residual ≤6.5 mV, clipping 0을 확인하였다. 다만 30분 locked RTL final_pred에 대한 직접 XMODEL sweep은 수행하지 않았으므로, classification 영향은 XMODEL stress metric과 ADC non-ideal final_pred regression에 기반한 equivalence-based robustness argument로 제시한다.
 
 ## 2.4 op-amp finite GBW / input offset — ✅ (GBW 강건 / VOS 헤드룸 인사이트)
 
@@ -106,8 +107,17 @@
 | 1.0 mV | +405 mV (+503 code) | 0 |
 | 2.0 mV | +810 mV (+1005 code) | 0 |
 
-→ **입력 offset은 IA 이득 ×201로 증폭돼 ADC baseline을 크게 이동**(HPF가 IA 이전에만 있어 offset 미차단). 실 VOS≤2mV에선 신호(±~250 code)를 더해도 rail(4095) 미도달 → **clipping 0**이나 **헤드룸을 소모**.
-- 정적 offset은 디지털 delta/slope 인코더·input_normalizer가 제거하므로 **분류엔 무영향**(rhythm/event feature 기반). 다만 헤드룸 보호를 위해 **저오프셋 op-amp(auto-zero/chopper, VOS<50µV) 또는 IA 후단 DC servo/2차 HPF** 권장 — analog 설계 개선 포인트.
+→ **입력 offset은 IA 이득 ×201로 증폭돼 ADC baseline을 크게 이동**(HPF가 IA 이전에만 있어 offset 미차단).
+
+**직접 확인된 것 (XMODEL headroom/stress):**
+- baseline 이동 (VOS ×201)
+- ADC headroom 소모
+- VOS ≤2 mV 조건에서 clipping 0
+
+**해석 (직접 sweep 아님):**
+> 정적 offset은 digital front-end가 상대 변화량과 normalization에 주로 의존하기 때문에 classification 영향이 제한적일 것으로 예상된다. 다만 본 항목은 locked RTL final_pred 직접 sweep이 아니라 XMODEL headroom/stress 결과에 기반한 해석이다.
+
+권장: 헤드룸 보호를 위해 저오프셋 op-amp(auto-zero/chopper, VOS<50µV) 또는 IA 후단 DC servo/2차 HPF.
 
 > **문구:** "finite GBW는 100kHz까지 ECG 영향 ≤2 code로 무시 가능. 입력 offset은 ×201 증폭돼 baseline을 이동시키나(VOS≤2mV서 clip 0), 저오프셋 op-amp/DC servo로 헤드룸 확보 권장."
 
@@ -137,7 +147,7 @@
 
 - **final_pred 유지 15/16.** offset(±5LSB)·gain(±1%)·jitter(100µs)는 **전 클래스 flip 0** (offset은 membrane drift도 0 — 디지털 delta/normalizer가 DC 제거).
 - **유일 flip = NSR@noise 2LSB rms.** 임계 확인: noise **0.5·1.0 LSB → NSR 완전 유지(30/0/0/0)**, 2.0 LSB에서만 flip. 즉 **현실적 ADC 잡음(≤1 LSB)에선 견고**하고, 2 LSB(ENOB~10, nominal보다 잡음 많음) 백색잡음이 깨끗한 NSR의 저변동성 feature를 부풀려 발생하는 **분류기 민감성**(ARR-105와 동류의 cross-domain 발견, 알고리즘팀 영역).
-- 결과 CSV: `docs/afe_stress/adc_nonideal_finalpred_xsim.csv`(+`_map.csv`).
+- 결과 artifact: 16 worst-condition case = `docs/afe_stress/adc_nonideal_finalpred_xsim.csv`(+`_map.csv`); **noise threshold(0.5/1.0/2.0 LSB) = `docs/afe_stress/adc_nonideal_noise_threshold_xsim.csv`/.md** (noise ≤1 LSB 안정 claim의 XSim result 추적).
 
 **요약 문구 (2.1):**
 > **EN:** Representative 30-min locked RTL regression under ADC non-ideal perturbations showed 15/16 final_pred stability. The only flip occurred for NSR under 2 LSB rms white-noise injection; noise ≤1 LSB, offset ±5 LSB, gain ±1%, and jitter 100 µs preserved final_pred.
