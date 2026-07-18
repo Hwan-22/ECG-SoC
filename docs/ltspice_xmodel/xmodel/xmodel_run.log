@@ -1,10 +1,10 @@
 === XMODEL FRESH RUN ===
-XMODEL_HOME: /home/soohwan/xmodel_2025.12_x86_64
-QUESTA_HOME: /home/soohwan/intelFPGA/25.1/questa_fse/questa_fse
+XMODEL_HOME: <HOME>/xmodel_2025.12_x86_64
+QUESTA_HOME: <HOME>/intelFPGA/25.1/questa_fse/questa_fse
 DUT        : reference/xmodel_fixed_4756a50_subset/analog/ecg_afe_xmodel.sv
 TB         : reference/xmodel_alignment/tb_xmodel_correlation.sv
 START(UTC) : 2026-07-18T06:44:22Z
-XMODEL reference: /home/soohwan/lth_x/LTSPICE_TEAM_HANDOFF/ltspice_validation/results/xmodel_aligned/xmodel_reference/adc_nominal.txt
+XMODEL reference: <WORKSPACE>/LTSPICE_TEAM_HANDOFF/ltspice_validation/results/xmodel_aligned/xmodel_reference/adc_nominal.txt
 Next: python scripts/compare_xmodel_ltspice.py
 exit_code  : 0
 END(UTC)   : 2026-07-18T06:44:50Z

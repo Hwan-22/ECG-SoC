@@ -1,6 +1,6 @@
 Questa Intel Starter FPGA Edition-64 vlog 2024.3 Compiler 2024.09 Sep 10 2024
 Start time: 15:44:23 on Jul 18,2026
-vlog -sv -mfcu "+define+XMODEL" "+define+XMODEL_TIMEPRECISION=1ns" "+incdir+/home/soohwan/xmodel_2025.12_x86_64/include" -work work -f /home/soohwan/xmodel_2025.12_x86_64/include/xmodel.f 
+vlog -sv -mfcu "+define+XMODEL" "+define+XMODEL_TIMEPRECISION=1ns" "+incdir+<HOME>/xmodel_2025.12_x86_64/include" -work work -f <HOME>/xmodel_2025.12_x86_64/include/xmodel.f 
 -- Compiling package xmodel_pkg
 -- Compiling package xmodel_prims
 -- Compiling package xmodel_mathpkg

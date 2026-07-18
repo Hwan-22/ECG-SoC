@@ -2,7 +2,7 @@ Reading pref.tcl
 
 # 2024.3
 
-# vsim -c -t 1ns -sv_lib /home/soohwan/xmodel_2025.12_x86_64/lib/x86_64/xmodel_msim -pli "/home/soohwan/xmodel_2025.12_x86_64/lib/x86_64/xmodel_msim.sl" -work work tb_xmodel_correlation XMODEL_global -do "run -all; quit -f" 
+# vsim -c -t 1ns -sv_lib <HOME>/xmodel_2025.12_x86_64/lib/x86_64/xmodel_msim -pli "<HOME>/xmodel_2025.12_x86_64/lib/x86_64/xmodel_msim.sl" -work work tb_xmodel_correlation XMODEL_global -do "run -all; quit -f" 
 # Start time: 15:44:24 on Jul 18,2026
 # ** Note: (vsim-3812) Design is being optimized...
 # ** Warning: (vsim-3865) Due to PLI being present, global +acc is being enabled automatically. This will cause your simulation to run very slowly. Please use vsim -no_autoacc to disable this feature. This feature is now deprecated and will be removed from future releases.
@@ -51,8 +51,8 @@ Reading pref.tcl
 # Loading work.capacitor(fast__3)
 # Loading work.xreal_to_real(fast)
 # Loading work.XMODEL_global(fast)
-# Loading /home/soohwan/xmodel_2025.12_x86_64/lib/x86_64/xmodel_msim.so
-# Loading /home/soohwan/xmodel_2025.12_x86_64/lib/x86_64/xmodel_msim.sl
+# Loading <HOME>/xmodel_2025.12_x86_64/lib/x86_64/xmodel_msim.so
+# Loading <HOME>/xmodel_2025.12_x86_64/lib/x86_64/xmodel_msim.sl
 # run -all
 # 
 #     _  ____  _______  ___  ______       
@@ -70,7 +70,7 @@ Reading pref.tcl
 #FLEXlm: License type: network
 #FLEXlm: License server: 52.79.127.207
 # 
-# ** Note: $finish    : /home/soohwan/lth_x/LTSPICE_TEAM_HANDOFF/ltspice_validation/reference/xmodel_alignment/tb_xmodel_correlation.sv(35)
+# ** Note: $finish    : <WORKSPACE>/LTSPICE_TEAM_HANDOFF/ltspice_validation/reference/xmodel_alignment/tb_xmodel_correlation.sv(35)
 #    Time: 10000000001 ns  Iteration: 0  Instance: /tb_xmodel_correlation
 # End time: 15:44:50 on Jul 18,2026, Elapsed time: 0:00:26
 # Errors: 0, Warnings: 2

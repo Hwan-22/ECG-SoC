@@ -1,6 +1,6 @@
 Questa Intel Starter FPGA Edition-64 vlog 2024.3 Compiler 2024.09 Sep 10 2024
 Start time: 15:44:23 on Jul 18,2026
-vlog -sv -mfcu "+define+XMODEL" "+define+XMODEL_TIMEPRECISION=1ns" "+incdir+/home/soohwan/xmodel_2025.12_x86_64/include" -work work /home/soohwan/lth_x/LTSPICE_TEAM_HANDOFF/ltspice_validation/reference/xmodel_fixed_4756a50_subset/analog/ecg_afe_xmodel.sv 
+vlog -sv -mfcu "+define+XMODEL" "+define+XMODEL_TIMEPRECISION=1ns" "+incdir+<HOME>/xmodel_2025.12_x86_64/include" -work work <WORKSPACE>/LTSPICE_TEAM_HANDOFF/ltspice_validation/reference/xmodel_fixed_4756a50_subset/analog/ecg_afe_xmodel.sv 
 -- Compiling package ecg_afe_xmodel_sv_unit
 -- Importing package xmodel_pkg
 -- Compiling module x_opamp
