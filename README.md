@@ -11,6 +11,8 @@
 LTspice 회로 설계 + XModel(Questa) 통합 검증 + FPGA(Nexys A7) board replay로 검증한 **model-based mixed-signal-to-digital ECG accelerator**입니다. (물리 전극 실측/AFE PCB/CMOS layout·clinical 검증은 범위 밖 — 아래 한계 참조)
 
 > 📂 구조·데이터·결과 전체: **[PROJECT_LAYOUT.md](PROJECT_LAYOUT.md)** · 디지털 블록: **[docs/DIGITAL_BLOCK.md](docs/DIGITAL_BLOCK.md)** · ADC 결정: **[docs/AFE_ADC_XADC_decision.md](docs/AFE_ADC_XADC_decision.md)**
+>
+> 🔗 **통합 저장소 연계**: 본 저장소는 [ECG-SoC-Integrated](https://github.com/Sheep-gun/ECG-SoC-Integrated)의 component **`afe_xmodel`**(고정 commit `4756a50`)로 import됩니다. 담당 claim(CLM-012/013/014)·evidence 경로·용어 경계는 **[docs/INTEGRATION_LINKAGE.md](docs/INTEGRATION_LINKAGE.md)** 참조.
 
 ---
 

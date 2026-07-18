@@ -21,7 +21,11 @@
 최신 모델의 XSim/board replay 입력 경로(`digital_block/tools/board_replay/run_locked_fulltop_xsim_cases.py`, `reports/final/strict_recordwise/structural_final_test_predictions.csv`)를 분석한 결과, 입력이 전부
 `fullrec_afe_30min_annotation_valid_balanced/<split>/<class>/<rec>/<rec>_30min_wXXX.mem` 형식이다.
 `fullrec_afe` = **우리가 생성·전달한 full-record AFE+ADC stream**(afe_emu 파이프라인, `docs/AFE_fullrecord_conversion_conditions.md`)을 30분 윈도우로 자른 것.
-∴ **최신 locked model의 최종 성능(final_test chunk 29/36=80.56%, board replay final_pred 36/36·final_mem exact 36/36)은 이미 우리 AFE+ADC 경로 위에서 산출된 것**이다. 형식도 정확히 일치: signed 12-bit, mid-code 2048, 1 kSPS (1.1 headroom 스캔·2.1 non-ideal에서 검증한 우리 ADC 사양과 동일).
+∴ **최신 locked model의 평가가 이미 우리 AFE+ADC 경로 위에서 수행된 것**이다. 형식도 정확히 일치: signed 12-bit, mid-code 2048, 1 kSPS (1.1 headroom 스캔·2.1 non-ideal에서 검증한 우리 ADC 사양과 동일).
+
+> **용어 경계 (통합 terminology 준수):** 아래 두 수치는 **성격이 다르므로 합쳐 쓰지 않는다**.
+> - **classification accuracy**: locked final-test 30분 chunk **29/36 = 80.56%** (public-dataset 공학 평가 결과)
+> - **functional equivalence**: board replay / AFE→RTL의 final_pred·final_mem **36/36** (같은 입력에 대한 출력 일치이며 정확도가 아님)
 
 ## 3. 직접 재현 (우리 AFE 출력 → 최신 locked RTL XSim)
 ### 방법
