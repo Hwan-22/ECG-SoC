@@ -1,0 +1,8 @@
+=== LTspice FRESH RUN (XVII-compatible opamp lib) ===
+executable: C:\Program Files (x86)\LTC\LTspiceXVII\XVIIx64.exe (LTspiceXVII 17.0.37.0)
+netlist   : xma_adc_10s_fresh.cir  (.tran 0 10.001 0 5u)
+opamp lib : XOpAmp_XMODEL_XVII.lib
+START(UTC): 2026-07-18T06:43:52.7307323Z
+exit_code : 0
+elapsed_s : 32.3
+END(UTC)  : 2026-07-18T06:44:25.1097518Z

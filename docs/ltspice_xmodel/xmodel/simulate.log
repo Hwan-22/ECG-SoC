@@ -1,0 +1,76 @@
+Reading pref.tcl
+
+# 2024.3
+
+# vsim -c -t 1ns -sv_lib /home/soohwan/xmodel_2025.12_x86_64/lib/x86_64/xmodel_msim -pli "/home/soohwan/xmodel_2025.12_x86_64/lib/x86_64/xmodel_msim.sl" -work work tb_xmodel_correlation XMODEL_global -do "run -all; quit -f" 
+# Start time: 15:44:24 on Jul 18,2026
+# ** Note: (vsim-3812) Design is being optimized...
+# ** Warning: (vsim-3865) Due to PLI being present, global +acc is being enabled automatically. This will cause your simulation to run very slowly. Please use vsim -no_autoacc to disable this feature. This feature is now deprecated and will be removed from future releases.
+# ** Warning: (vopt-10908) Some optimizations are turned off because the +acc switch is in effect.
+# ** Note: (vsim-12126) Error and warning message counts have been restored: Errors=0, Warnings=2.
+# //  Questa Intel Starter FPGA Edition-64
+# //  Version 2024.3 linux_x86_64 Sep 10 2024
+# //
+# // Unpublished work. Copyright 2024 Siemens
+# //
+# // This material contains trade secrets or otherwise confidential information
+# // owned by Siemens Industry Software Inc. or its affiliates (collectively,
+# // "SISW"), or its licensors. Access to and use of this information is strictly
+# // limited as set forth in the Customer's applicable agreements with SISW.
+# //
+# // This material may not be copied, distributed, or otherwise disclosed outside
+# // of the Customer's facilities without the express written permission of SISW,
+# // and may not be used in any way not expressly authorized by SISW.
+# //
+# Loading sv_std.std
+# Loading work.tb_xmodel_correlation(fast)
+# Loading work.xmodel_pkg(fast)
+# Loading work.ecg_afe_xmodel_sv_unit(fast)
+# Loading work.ecg_afe_xmodel(fast)
+# Loading work.xmodel_prims(fast)
+# Loading work.xmodel_checkpkg(fast)
+# Loading work.xmodel_mathpkg(fast)
+# Loading work.xmodel_sv_unit(fast)
+# Loading work.real_to_xreal(fast)
+# Loading work.capacitor(fast)
+# Loading work.resistor(fast)
+# Loading work.resistor(fast__1)
+# Loading work.resistor(fast__2)
+# Loading work.x_opamp(fast)
+# Loading work.vcvs(fast)
+# Loading work.vcvs(fast__1)
+# Loading work.resistor(fast__3)
+# Loading work.vlimit(fast)
+# Loading work.resistor(fast__4)
+# Loading work.resistor(fast__5)
+# Loading work.capacitor(fast__1)
+# Loading work.capacitor(fast__2)
+# Loading work.resistor(fast__6)
+# Loading work.resistor(fast__7)
+# Loading work.resistor(fast__8)
+# Loading work.capacitor(fast__3)
+# Loading work.xreal_to_real(fast)
+# Loading work.XMODEL_global(fast)
+# Loading /home/soohwan/xmodel_2025.12_x86_64/lib/x86_64/xmodel_msim.so
+# Loading /home/soohwan/xmodel_2025.12_x86_64/lib/x86_64/xmodel_msim.sl
+# run -all
+# 
+#     _  ____  _______  ___  ______       
+#    | |/_/  |/  / __ \/ _ \/ __/ /  (TM) 
+#   _|  |/ /|_/ / /_/ / // / _// /__      
+#  /_/|_/_/  /_/\____/____/___/____/  ANALOG/MIXED-SIGNAL SIMULATOR 
+# 
+# XMODEL Release 2025.12 (x86_64)
+# Copyright (c) 2012-2025 Scientific Analog, Inc.
+# All rights reserved and patents pending.
+# 
+#FLEXlm: FEATURE 'XMODEL' has been successfully checked out.
+#FLEXlm: Version: 3.0 (full)
+#FLEXlm: Expiration: 31-dec-2026
+#FLEXlm: License type: network
+#FLEXlm: License server: 52.79.127.207
+# 
+# ** Note: $finish    : /home/soohwan/lth_x/LTSPICE_TEAM_HANDOFF/ltspice_validation/reference/xmodel_alignment/tb_xmodel_correlation.sv(35)
+#    Time: 10000000001 ns  Iteration: 0  Instance: /tb_xmodel_correlation
+# End time: 15:44:50 on Jul 18,2026, Elapsed time: 0:00:26
+# Errors: 0, Warnings: 2

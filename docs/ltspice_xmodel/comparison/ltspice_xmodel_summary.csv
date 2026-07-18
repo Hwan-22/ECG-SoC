@@ -1,0 +1,5 @@
+scope,XMODEL sample count,LTspice sample count,First sample time [s],Last sample time [s],Sample period [s],XMODEL signed min/max,LTspice signed min/max,Clipping count,Mean error [LSB],MAE [LSB],RMS error [LSB],Max abs error [LSB],Zero-lag correlation,Best lag [sample],Best-lag correlation,Bit-exact sample count,Bit-exact match ratio [%]
+full_0_10s,10000,10000,0.001,10,0.001,-96 / 302,-96 / 303,0,0.0221,0.6445,1.3020,13,0.999518,0,0.999518,5649,56.49
+settled_1_10s,9001,9001,1,10,0.001,-68 / 302,-68 / 303,0,0.0270,0.6549,1.3243,13,0.999502,0,0.999502,5061,56.23
+DIAG_direct_full,10000,10000,0.001,10,0.001,-96 / 302,-96 / 303,0,0.0216,0.6454,1.3031,13,0.999517,0,0.999517,5646,56.46
+DIAG_direct_settled,9001,9001,1,10,0.001,-68 / 302,-68 / 303,0,0.0266,0.6558,1.3254,13,0.999501,0,0.999501,5059,56.20

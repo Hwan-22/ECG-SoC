@@ -1,0 +1,391 @@
+Questa Intel Starter FPGA Edition-64 vlog 2024.3 Compiler 2024.09 Sep 10 2024
+Start time: 15:44:23 on Jul 18,2026
+vlog -sv -mfcu "+define+XMODEL" "+define+XMODEL_TIMEPRECISION=1ns" "+incdir+/home/soohwan/xmodel_2025.12_x86_64/include" -work work -f /home/soohwan/xmodel_2025.12_x86_64/include/xmodel.f 
+-- Compiling package xmodel_pkg
+-- Compiling package xmodel_prims
+-- Compiling package xmodel_mathpkg
+-- Compiling package xmodel_checkpkg
+-- Importing package xmodel_prims
+-- Compiling package xmodel_sv_unit
+-- Importing package xmodel_pkg
+-- Importing package xmodel_prims
+-- Importing package xmodel_mathpkg
+-- Importing package xmodel_checkpkg
+-- Compiling module XMODEL_global
+-- Compiling module integ_rst
+-- Compiling module ilo
+-- Compiling module integ_mod
+-- Compiling module add
+-- Compiling module slice
+-- Compiling module filter_comb
+-- Compiling module multiply
+-- Compiling module dac
+-- Compiling module transition
+-- Compiling module integ
+-- Compiling module filter_comb_var
+-- Compiling module pwl_func
+-- Compiling module limit
+-- Compiling module deriv
+-- Compiling module filter_sel
+-- Compiling module filter_disc_var
+-- Compiling module pwl_sel
+-- Compiling module delay_var
+-- Compiling module delay
+-- Compiling module abs_func
+-- Compiling module buffer
+-- Compiling module filter_fir
+-- Compiling module sample
+-- Compiling module exp_func
+-- Compiling module filter
+-- Compiling module delay_sel
+-- Compiling module select
+-- Compiling module poly_func
+-- Compiling module inv_func
+-- Compiling module filter_var
+-- Compiling module pwl_var
+-- Compiling module adc
+-- Compiling module compare
+-- Compiling module power
+-- Compiling module scale
+-- Compiling module filter_disc
+-- Compiling module sqrt_func
+-- Compiling module sin_func
+-- Compiling module scale_var
+-- Compiling module log_func
+-- Compiling module poly_sel
+-- Compiling module dff_set_sync_xbit
+-- Compiling module nand2_xbit
+-- Compiling module dff_rst_sync_xbit
+-- Compiling module buf_xbit
+-- Compiling module and2_xbit
+-- Compiling module dff_rst_async_xbit
+-- Compiling module delay_xbit
+-- Compiling module inv_xbit
+-- Compiling module and_xbit
+-- Compiling module xor_xbit
+-- Compiling module nand_xbit
+-- Compiling module dff_xbit
+-- Compiling module latch_xbit
+-- Compiling module xnor_xbit
+-- Compiling module triinv_xbit
+-- Compiling module xnor2_xbit
+-- Compiling module nor2_xbit
+-- Compiling module nor_xbit
+-- Compiling module interp_xbit
+-- Compiling module or2_xbit
+-- Compiling module tribuf_xbit
+-- Compiling module xor2_xbit
+-- Compiling module interp_var_xbit
+-- Compiling module dff_set_async_xbit
+-- Compiling module mux_xbit
+-- Compiling module or_xbit
+-- Compiling module noise_gen
+-- Compiling module dc_gen
+-- Compiling module pat_gen
+-- Compiling module replay_xreal
+-- Compiling module prbs_gen
+-- Compiling module pulse_gen
+-- Compiling module pwl_gen
+-- Compiling module clk_gen
+-- Compiling module sin_gen
+-- Compiling module exp_gen
+-- Compiling module const_xbit
+-- Compiling module chirp_gen
+-- Compiling module step_gen
+-- Compiling module replay_xbit
+-- Compiling module const_xreal
+-- Compiling module probe_delay
+-- Compiling module probe_freq
+-- Compiling module meas_value
+-- Compiling module probe_xbit
+-- Compiling module check_value_real
+-- Compiling module meas_pp
+-- Compiling module trig_rise
+-- Compiling module trig_call
+-- Compiling module trig_posedge
+-- Compiling module meas_fall
+-- Compiling module check_phase
+-- Compiling module check_freq
+-- Compiling module trig_fall
+-- Compiling module meas_max
+-- Compiling module trig_negedge
+-- Compiling module probe_dc
+-- Compiling module probe_real
+-- Compiling module probe_value
+-- Compiling module probe_ac
+-- Compiling module meas_delay
+-- Compiling module meas_rise
+-- Compiling module check_duty
+-- Compiling module check_delay_bit
+-- Compiling module check_delay
+-- Compiling module probe_xreal
+-- Compiling module meas_slope
+-- Compiling module meas_time
+-- Compiling module meas_rms
+-- Compiling module meas_freq
+-- Compiling module probe_phase
+-- Compiling module probe_meas
+-- Compiling module meas_negedge
+-- Compiling module meas_integ
+-- Compiling module meas_deriv
+-- Compiling module meas_avg
+-- Compiling module meas_edge
+-- Compiling module probe_period
+-- Compiling module trig_cross
+-- Compiling module probe_duty
+-- Compiling module meas_min
+-- Compiling module meas_ber
+-- Compiling module probe_bit
+-- Compiling module meas_cross
+-- Compiling module meas_posedge
+-- Compiling module trig_edge
+-- Compiling module meas_period
+-- Compiling module check_period
+-- Compiling module check_value
+-- Compiling module trig_time
+-- Compiling module probe_ber
+-- Compiling module freq_to_clk
+-- Compiling module clk_to_period
+-- Compiling module period_to_clk
+-- Compiling module clk_to_duty
+-- Compiling module clk_to_delay
+-- Compiling module delay_to_clk
+-- Compiling module phase_to_clk
+-- Compiling module duty_to_clk
+-- Compiling module clk_to_freq
+-- Compiling module clk_to_phase
+-- Compiling module xreal_to_bit_var
+-- Compiling module xbit_to_xreal_var
+-- Compiling module xreal_to_real
+-- Compiling module real_to_xreal
+-- Compiling module temp_to_xreal
+-- Compiling module bit_to_real
+-- Compiling module xbit_to_real_var
+-- Compiling module xbit_to_xreal
+-- Compiling module real_to_temp
+-- Compiling module temp_to_real
+-- Compiling module bit_to_xbit
+-- Compiling module bit_to_xreal_var
+-- Compiling module real_to_bit
+-- Compiling module xreal_to_xbit
+-- Compiling module real_to_xbit
+-- Compiling module bit_to_real_var
+-- Compiling module real_to_bit_var
+-- Compiling module xreal_to_bit
+-- Compiling module xreal_to_xbit_var
+-- Compiling module xreal_to_temp
+-- Compiling module bit_to_xreal
+-- Compiling module xbit_to_bit
+-- Compiling module real_to_xbit_var
+-- Compiling module xbit_to_real
+-- Compiling module ind_var
+-- Compiling module mtline
+-- Compiling module res_idx
+-- Compiling module cccs
+-- Compiling module tline
+-- Compiling module res_sw
+-- Compiling module ccvs
+-- Compiling module vcvs_sw
+-- Compiling module vlimit_sw
+-- Compiling module nportres_sw
+-- Compiling module vprobe
+-- Compiling module ccvs_sw
+-- Compiling module ind_idx
+-- Compiling module res_var
+-- Compiling module minductor
+-- Compiling module nmosfet
+-- Compiling module iprobe
+-- Compiling module capacitor
+-- Compiling module iinit
+-- Compiling module stline
+-- Compiling module tline_unit
+-- Compiling module gm_rect
+-- Compiling module pmosfet
+-- Compiling module switch
+-- Compiling module diode
+-- Compiling module vccs_sw
+-- Compiling module npn
+-- Compiling module cap_idx
+-- Compiling module inductor
+-- Compiling module transformer
+-- Compiling module cccs_sw
+-- Compiling module cap_var
+-- Compiling module ilimit
+-- Compiling module ilimit_sw
+-- Compiling module ind_sw
+-- Compiling module vinit
+-- Compiling module isource
+-- Compiling module resistor
+-- Compiling module pmosfet_idx
+-- Compiling module tline_var
+-- Compiling module cap_sw
+-- Compiling module stline_unit
+-- Compiling module mscale
+-- Compiling module vccs
+-- Compiling module nmosfet_idx
+-- Compiling module pnp
+-- Compiling module impedance
+-- Compiling module vsource
+-- Compiling module vlimit
+-- Compiling module vcvs
+
+Top level modules:
+	XMODEL_global
+	integ_rst
+	ilo
+	filter_comb
+	dac
+	integ
+	filter_comb_var
+	limit
+	deriv
+	filter_sel
+	filter_disc_var
+	pwl_sel
+	delay
+	abs_func
+	filter_fir
+	exp_func
+	filter
+	delay_sel
+	select
+	filter_var
+	pwl_var
+	adc
+	compare
+	power
+	scale
+	filter_disc
+	sqrt_func
+	scale_var
+	log_func
+	poly_sel
+	dff_set_sync_xbit
+	nand2_xbit
+	dff_rst_sync_xbit
+	and2_xbit
+	dff_rst_async_xbit
+	inv_xbit
+	nand_xbit
+	latch_xbit
+	xnor_xbit
+	triinv_xbit
+	xnor2_xbit
+	nor2_xbit
+	nor_xbit
+	interp_xbit
+	or2_xbit
+	xor2_xbit
+	interp_var_xbit
+	dff_set_async_xbit
+	mux_xbit
+	noise_gen
+	pat_gen
+	replay_xreal
+	prbs_gen
+	clk_gen
+	sin_gen
+	exp_gen
+	const_xbit
+	step_gen
+	replay_xbit
+	const_xreal
+	probe_delay
+	probe_freq
+	meas_value
+	probe_xbit
+	check_value_real
+	meas_pp
+	trig_call
+	meas_fall
+	check_phase
+	check_freq
+	meas_max
+	probe_dc
+	probe_real
+	probe_value
+	probe_ac
+	meas_delay
+	meas_rise
+	check_duty
+	check_delay_bit
+	check_delay
+	probe_xreal
+	meas_slope
+	meas_rms
+	probe_phase
+	meas_negedge
+	meas_avg
+	meas_edge
+	probe_period
+	probe_duty
+	meas_min
+	probe_bit
+	meas_cross
+	meas_posedge
+	check_period
+	check_value
+	probe_ber
+	period_to_clk
+	delay_to_clk
+	duty_to_clk
+	xreal_to_bit_var
+	temp_to_xreal
+	bit_to_real
+	xbit_to_real_var
+	bit_to_xreal_var
+	real_to_bit
+	real_to_xbit
+	bit_to_real_var
+	real_to_bit_var
+	xreal_to_bit
+	xreal_to_temp
+	bit_to_xreal
+	real_to_xbit_var
+	xbit_to_real
+	ind_var
+	mtline
+	res_idx
+	cccs
+	tline
+	res_sw
+	ccvs
+	vcvs_sw
+	vlimit_sw
+	nportres_sw
+	vprobe
+	ccvs_sw
+	ind_idx
+	res_var
+	minductor
+	nmosfet
+	iprobe
+	iinit
+	stline
+	gm_rect
+	pmosfet
+	diode
+	vccs_sw
+	npn
+	cap_idx
+	transformer
+	cccs_sw
+	cap_var
+	ilimit
+	ilimit_sw
+	ind_sw
+	vinit
+	isource
+	pmosfet_idx
+	tline_var
+	cap_sw
+	mscale
+	vccs
+	nmosfet_idx
+	pnp
+	impedance
+	vsource
+	vlimit
+	vcvs
+End time: 15:44:23 on Jul 18,2026, Elapsed time: 0:00:00
+Errors: 0, Warnings: 0

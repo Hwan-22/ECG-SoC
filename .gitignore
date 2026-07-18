@@ -43,3 +43,6 @@ data/*.pwl
 data/*.mem
 *.wlf
 transcript
+
+# LTspice/XMODEL 비교 증빙 로그는 검증 artifact이므로 커밋
+!docs/ltspice_xmodel/**/*.log
